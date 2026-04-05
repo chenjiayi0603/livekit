@@ -36,6 +36,7 @@ COPY version/ version/
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH GO111MODULE=on go build -a -o livekit-server ./cmd/server
 
+# 以 alpine 这个极简 Linux 发行版为基础镜像（即构建产物会被复制到这里，在这个干净的小镜像里运行），这样镜像更小、更安全。
 FROM alpine
 
 COPY --from=builder /workspace/livekit-server /livekit-server
